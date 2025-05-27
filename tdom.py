@@ -32,7 +32,7 @@ class TDOMAnalyzerApp(QWidget):
 
     def load_initial_data(self):
         try:
-            default_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cme_data.txt')
+            default_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'rev_data.txt')
             if os.path.exists(default_path):
                 raw_data = self.fetch_data_from_file(default_path)
                 if raw_data is not None:
@@ -51,7 +51,7 @@ class TDOMAnalyzerApp(QWidget):
         try:
             if not os.path.exists(file_path):
                 raise FileNotFoundError(f"File not found: {file_path}")
-            data = pd.read_csv(file_path, delimiter=',', encoding='utf-8', on_bad_lines='skip')
+            data = pd.read_csv(file_path, delimiter='\t', encoding='utf-8', on_bad_lines='skip')
             data.columns = [col.lower().strip() for col in data.columns]
             required_columns = {'date', 'symbol', 'tdom', 'profit'}
             missing_columns = required_columns - set(data.columns)
